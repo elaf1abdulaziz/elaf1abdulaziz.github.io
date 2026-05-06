@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elaf Abdulaziz — Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #040810;
+    --surface: #080f1a;
+    --surface2: #0d1825;
+    --accent: #00c8ff;
+    --accent2: #0066ff;
+    --green: #00ff88;
+    --text: #e8f4ff;
+    --muted: #5a7a9a;
+    --border: rgba(0, 200, 255, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(0,200,255,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.15s ease;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(0,100,255,0.08); top: -100px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: rgba(0,200,255,0.05); bottom: 20%; left: -100px; }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(4,8,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    direction: ltr;
+  }
+
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Sections */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 120px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 140px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    direction: ltr;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    direction: ltr;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 .name-ar {
+    display: block;
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 2px;
+    direction: rtl;
+    margin-top: 12px;
+    margin-bottom: 32px;
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    direction: ltr;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-primary:hover {
+    background: white;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Status indicator */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    margin-bottom: 60px;
+    direction: ltr;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  /* Section titles */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    direction: ltr;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 60px;
+    direction: ltr;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-card {
+    background: var(--surface);
+    padding: 40px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-card:hover { background: var(--surface2); }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .skill-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+    direction: ltr;
+  }
+
+  .skill-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Project */
+  .project-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .project-card:hover { border-color: rgba(0,200,255,0.3); }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,100,255,0.04), transparent);
+    pointer-events: none;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    direction: ltr;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .project-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    direction: ltr;
+  }
+
+  .project-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 32px;
+    max-width: 700px;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    direction: ltr;
+    margin-bottom: 32px;
+  }
+
+  .tech-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    background: rgba(0,200,255,0.06);
+    border: 1px solid rgba(0,200,255,0.15);
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .project-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .feature::before {
+    content: '▸';
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* Certifications */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .cert-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card:hover {
+    border-color: rgba(0,200,255,0.3);
+    transform: translateY(-4px);
+  }
+
+  .cert-icon {
+    width: 48px; height: 48px;
+    background: rgba(0,200,255,0.08);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .cert-info { flex: 1; }
+
+  .cert-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    direction: ltr;
+  }
+
+  .cert-issuer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    direction: ltr;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .contact-item {
+    background: var(--surface);
+    padding: 40px;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-item:hover { background: var(--surface2); }
+
+  .contact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    direction: ltr;
+  }
+
+  .contact-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    direction: ltr;
+  }
+
+  .contact-arrow {
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: auto;
+    direction: ltr;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    direction: ltr;
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, section { padding: 100px 24px 60px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">ELAF.DEV</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="about">
+  <div class="status">
+    <span class="status-dot"></span>
+    Available for opportunities
+  </div>
+
+  <div class="hero-tag">Cybersecurity Specialist</div>
+
+  <h1>
+    Elaf Abdulaziz
+    <span class="name-ar">إيلاف عبدالعزيز آل حمد</span>
+  </h1>
+
+  <p class="hero-desc">
+    متخصصة في الأمن السيبراني وتطوير حلول الذكاء الاصطناعي. أبني أنظمة ذكية تحمي البيئات الرقمية وتحلل التهديدات الأمنية.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="mailto:elaf1cyber@gmail.com" class="btn-secondary">Get In Touch</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-label fade-in">Expertise</div>
+  <h2 class="section-title fade-in">Skills & Capabilities</h2>
+
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-title">Python Development</div>
+      <p class="skill-desc">Scripting, automation, and data analysis using Python for cybersecurity applications and AI agent development.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🛡️</div>
+      <div class="skill-title">Cybersecurity</div>
+      <p class="skill-desc">Cybersecurity awareness, secure coding practices, threat analysis, and vulnerability assessment.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-title">AI Agents</div>
+      <p class="skill-desc">Building intelligent AI agents using LangChain, LangGraph, and OpenAI APIs with ReAct loop architecture.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-title">Technical Troubleshooting</div>
+      <p class="skill-desc">Expertise in maintaining and operating technological equipment and systems with precision.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💼</div>
+      <div class="skill-title">Microsoft Office Suite</div>
+      <p class="skill-desc">Advanced proficiency in Excel, PowerPoint, Word and specialized technical software.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔐</div>
+      <div class="skill-title">Secure Coding</div>
+      <p class="skill-desc">Understanding and implementation of secure coding practices and data protection standards.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-label fade-in">Work</div>
+  <h2 class="section-title fade-in">Featured Project</h2>
+
+  <div class="project-card fade-in">
+    <div class="project-header">
+      <div class="project-tag">AI Agent · Cybersecurity</div>
+      <div class="project-tag" style="color: var(--green); border-color: rgba(0,255,136,0.2);">✓ Live</div>
+    </div>
+
+    <h3 class="project-title">Cyber Intelligence Agent</h3>
+
+    <p class="project-desc">
+      وكيل ذكاء اصطناعي متخصص في الأمن السيبراني يستخدم ReAct Loop Architecture مع ذاكرة محادثة وأدوات متخصصة لتحليل التهديدات الأمنية وتقديم التوصيات الفورية.
+    </p>
+
+    <div class="tech-stack">
+      <span class="tech-badge">Python</span>
+      <span class="tech-badge">LangGraph</span>
+      <span class="tech-badge">LangChain</span>
+      <span class="tech-badge">OpenAI GPT-4o</span>
+      <span class="tech-badge">ReAct Loop</span>
+      <span class="tech-badge">Memory</span>
+    </div>
+
+    <div class="project-features">
+      <div class="feature">Threat Analysis Tool</div>
+      <div class="feature">Password Strength Checker</div>
+      <div class="feature">Security Tips Engine</div>
+      <div class="feature">Conversation Memory</div>
+      <div class="feature">Arabic Language Support</div>
+      <div class="feature">ReAct Loop Architecture</div>
+    </div>
+
+    <a href="https://github.com/elaf1abdulaziz/Cyber-Search-Agent" target="_blank" class="btn-primary" style="display:inline-block; direction:ltr;">
+      View on GitHub →
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Certifications -->
+<section id="certifications">
+  <div class="section-label fade-in">Credentials</div>
+  <h2 class="section-title fade-in">Certifications & Licenses</h2>
+
+  <div class="certs-grid fade-in">
+    <div class="cert-card">
+      <div class="cert-icon">🛡️</div>
+      <div class="cert-info">
+        <div class="cert-name">Cybersecurity Certificate</div>
+        <div class="cert-issuer">MISK × Saudi Aramco</div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div class="cert-info">
+        <div class="cert-name">Unleashing the Power of AI Agents</div>
+        <div class="cert-issuer">IBM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-label fade-in">Connect</div>
+  <h2 class="section-title fade-in">Get In Touch</h2>
+
+  <div class="contact-grid fade-in">
+    <a href="mailto:elaf1cyber@gmail.com" class="contact-item">
+      <div class="contact-label">Email</div>
+      <div class="contact-value">elaf1cyber@gmail.com</div>
+      <div class="contact-arrow">→</div>
+    </a>
+    <a href="https://github.com/elaf1abdulaziz" target="_blank" class="contact-item">
+      <div class="contact-label">GitHub</div>
+      <div class="contact-value">elaf1abdulaziz</div>
+      <div class="contact-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-text">© 2025 Elaf Abdulaziz Al Hamad</div>
+  <div class="footer-text">Cybersecurity · AI Development</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 4 + 'px';
+    cursor.style.top = my - 4 + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 16 + 'px';
+    ring.style.top = ry - 16 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Fade in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
