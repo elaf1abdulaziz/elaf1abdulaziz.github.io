@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elaf Abdulaziz — Cybersecurity</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #040810;
@@ -23,12 +23,11 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Syne', sans-serif;
     overflow-x: hidden;
     cursor: none;
   }
 
-  /* Custom cursor */
   .cursor {
     width: 8px; height: 8px;
     background: var(--accent);
@@ -36,7 +35,6 @@
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.1s;
     mix-blend-mode: screen;
   }
   .cursor-ring {
@@ -49,7 +47,6 @@
     transition: all 0.15s ease;
   }
 
-  /* Grid background */
   body::before {
     content: '';
     position: fixed;
@@ -62,7 +59,6 @@
     z-index: 0;
   }
 
-  /* Glow orbs */
   .orb {
     position: fixed;
     border-radius: 50%;
@@ -73,7 +69,6 @@
   .orb1 { width: 500px; height: 500px; background: rgba(0,100,255,0.08); top: -100px; right: -100px; }
   .orb2 { width: 400px; height: 400px; background: rgba(0,200,255,0.05); bottom: 20%; left: -100px; }
 
-  /* Navigation */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -99,7 +94,6 @@
     display: flex;
     gap: 40px;
     list-style: none;
-    direction: ltr;
   }
 
   .nav-links a {
@@ -113,7 +107,6 @@
   }
   .nav-links a:hover { color: var(--accent); }
 
-  /* Sections */
   section {
     position: relative;
     z-index: 1;
@@ -122,7 +115,6 @@
     margin: 0 auto;
   }
 
-  /* Hero */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -145,7 +137,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    direction: ltr;
   }
   .hero-tag::before {
     content: '';
@@ -159,18 +150,16 @@
     font-weight: 800;
     line-height: 1;
     letter-spacing: -2px;
-    direction: ltr;
     margin-bottom: 8px;
   }
 
   .hero h1 .name-ar {
     display: block;
-    font-family: 'Tajawal', sans-serif;
-    font-size: clamp(28px, 4vw, 48px);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(16px, 2vw, 24px);
     font-weight: 300;
     color: var(--muted);
     letter-spacing: 2px;
-    direction: rtl;
     margin-top: 12px;
     margin-bottom: 32px;
   }
@@ -187,7 +176,6 @@
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-    direction: ltr;
   }
 
   .btn-primary {
@@ -224,7 +212,6 @@
     color: var(--accent);
   }
 
-  /* Status indicator */
   .status {
     display: inline-flex;
     align-items: center;
@@ -233,7 +220,6 @@
     font-size: 11px;
     color: var(--green);
     margin-bottom: 60px;
-    direction: ltr;
   }
   .status-dot {
     width: 6px; height: 6px;
@@ -246,7 +232,6 @@
     50% { opacity: 0.5; transform: scale(1.5); }
   }
 
-  /* Section titles */
   .section-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -257,7 +242,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    direction: ltr;
   }
   .section-label::before {
     content: '';
@@ -271,10 +255,8 @@
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 60px;
-    direction: ltr;
   }
 
-  /* Skills */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -303,10 +285,7 @@
   .skill-card:hover::before { transform: scaleX(1); }
   .skill-card:hover { background: var(--surface2); }
 
-  .skill-icon {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
+  .skill-icon { font-size: 28px; margin-bottom: 20px; }
 
   .skill-title {
     font-family: 'Syne', sans-serif;
@@ -314,7 +293,6 @@
     font-weight: 700;
     margin-bottom: 12px;
     color: var(--text);
-    direction: ltr;
   }
 
   .skill-desc {
@@ -323,7 +301,6 @@
     line-height: 1.7;
   }
 
-  /* Project */
   .project-card {
     border: 1px solid var(--border);
     background: var(--surface);
@@ -331,9 +308,9 @@
     position: relative;
     overflow: hidden;
     transition: border-color 0.3s;
+    margin-bottom: 32px;
   }
   .project-card:hover { border-color: rgba(0,200,255,0.3); }
-
   .project-card::after {
     content: '';
     position: absolute;
@@ -347,7 +324,6 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 24px;
-    direction: ltr;
     flex-wrap: wrap;
     gap: 16px;
   }
@@ -367,7 +343,6 @@
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 16px;
-    direction: ltr;
   }
 
   .project-desc {
@@ -382,7 +357,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    direction: ltr;
     margin-bottom: 32px;
   }
 
@@ -416,7 +390,6 @@
     font-size: 12px;
   }
 
-  /* Certifications */
   .certs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -431,8 +404,6 @@
     gap: 20px;
     align-items: flex-start;
     transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
   }
   .cert-card:hover {
     border-color: rgba(0,200,255,0.3);
@@ -457,7 +428,6 @@
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 6px;
-    direction: ltr;
   }
 
   .cert-issuer {
@@ -465,10 +435,8 @@
     font-size: 11px;
     color: var(--accent);
     letter-spacing: 1px;
-    direction: ltr;
   }
 
-  /* Contact */
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -494,7 +462,6 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--muted);
-    direction: ltr;
   }
 
   .contact-value {
@@ -502,17 +469,14 @@
     font-size: 18px;
     font-weight: 700;
     color: var(--text);
-    direction: ltr;
   }
 
   .contact-arrow {
     font-size: 20px;
     color: var(--accent);
     margin-top: auto;
-    direction: ltr;
   }
 
-  /* Footer */
   footer {
     border-top: 1px solid var(--border);
     padding: 40px 60px;
@@ -528,10 +492,8 @@
     font-size: 11px;
     color: var(--muted);
     letter-spacing: 2px;
-    direction: ltr;
   }
 
-  /* Animations */
   .fade-in {
     opacity: 0;
     transform: translateY(30px);
@@ -542,7 +504,6 @@
     transform: translateY(0);
   }
 
-  /* Divider */
   .divider {
     width: 100%;
     height: 1px;
@@ -551,7 +512,6 @@
     z-index: 1;
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--accent2); }
@@ -571,7 +531,6 @@
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
-<!-- Navigation -->
 <nav>
   <div class="nav-logo">ELAF.DEV</div>
   <ul class="nav-links">
@@ -583,7 +542,6 @@
   </ul>
 </nav>
 
-<!-- Hero -->
 <div class="hero" id="about">
   <div class="status">
     <span class="status-dot"></span>
@@ -592,13 +550,10 @@
 
   <div class="hero-tag">Cybersecurity Specialist</div>
 
-  <h1>
-    Elaf Abdulaziz
-    <span class="name-ar">إيلاف عبدالعزيز آل حمد</span>
-  </h1>
+  <h1>Elaf Abdulaziz</h1>
 
   <p class="hero-desc">
-    متخصصة في الأمن السيبراني وتطوير حلول الذكاء الاصطناعي. أبني أنظمة ذكية تحمي البيئات الرقمية وتحلل التهديدات الأمنية.
+    Cybersecurity specialist and AI solutions developer. I build intelligent systems that protect digital environments, analyze security threats, and solve real-world problems.
   </p>
 
   <div class="hero-cta">
@@ -609,7 +564,6 @@
 
 <div class="divider"></div>
 
-<!-- Skills -->
 <section id="skills">
   <div class="section-label fade-in">Expertise</div>
   <h2 class="section-title fade-in">Skills & Capabilities</h2>
@@ -650,23 +604,19 @@
 
 <div class="divider"></div>
 
-<!-- Projects -->
 <section id="projects">
   <div class="section-label fade-in">Work</div>
-  <h2 class="section-title fade-in">Featured Project</h2>
+  <h2 class="section-title fade-in">Featured Projects</h2>
 
   <div class="project-card fade-in">
     <div class="project-header">
       <div class="project-tag">AI Agent · Cybersecurity</div>
       <div class="project-tag" style="color: var(--green); border-color: rgba(0,255,136,0.2);">✓ Live</div>
     </div>
-
     <h3 class="project-title">Cyber Intelligence Agent</h3>
-
     <p class="project-desc">
-      وكيل ذكاء اصطناعي متخصص في الأمن السيبراني يستخدم ReAct Loop Architecture مع ذاكرة محادثة وأدوات متخصصة لتحليل التهديدات الأمنية وتقديم التوصيات الفورية.
+      An AI agent specialized in cybersecurity using ReAct Loop Architecture with conversation memory and specialized tools for analyzing security threats and providing instant recommendations.
     </p>
-
     <div class="tech-stack">
       <span class="tech-badge">Python</span>
       <span class="tech-badge">LangGraph</span>
@@ -675,7 +625,6 @@
       <span class="tech-badge">ReAct Loop</span>
       <span class="tech-badge">Memory</span>
     </div>
-
     <div class="project-features">
       <div class="feature">Threat Analysis Tool</div>
       <div class="feature">Password Strength Checker</div>
@@ -684,8 +633,37 @@
       <div class="feature">Arabic Language Support</div>
       <div class="feature">ReAct Loop Architecture</div>
     </div>
+    <a href="https://github.com/elaf1abdulaziz/Cyber-Search-Agent" target="_blank" class="btn-primary" style="display:inline-block;">
+      View on GitHub →
+    </a>
+  </div>
 
-    <a href="https://github.com/elaf1abdulaziz/Cyber-Search-Agent" target="_blank" class="btn-primary" style="display:inline-block; direction:ltr;">
+  <div class="project-card fade-in">
+    <div class="project-header">
+      <div class="project-tag">AI Agent · Social Impact</div>
+      <div class="project-tag" style="color: var(--green); border-color: rgba(0,255,136,0.2);">✓ Live</div>
+    </div>
+    <h3 class="project-title">Hajj Guard AI 🕌</h3>
+    <p class="project-desc">
+      An AI agent protecting Hajj and Umrah pilgrims from fraud and scams. Analyzes suspicious offers in real-time, searches the internet for real company reviews, and guides victims to official resources.
+    </p>
+    <div class="tech-stack">
+      <span class="tech-badge">Python</span>
+      <span class="tech-badge">LangGraph</span>
+      <span class="tech-badge">LangChain</span>
+      <span class="tech-badge">OpenAI GPT-4o</span>
+      <span class="tech-badge">Web Search</span>
+      <span class="tech-badge">ReAct Loop</span>
+    </div>
+    <div class="project-features">
+      <div class="feature">Fraud Detection</div>
+      <div class="feature">Live Web Search</div>
+      <div class="feature">Official Contacts</div>
+      <div class="feature">Fraud Reporting Guide</div>
+      <div class="feature">Arabic & English Support</div>
+      <div class="feature">2.5M+ Pilgrims Protected</div>
+    </div>
+    <a href="https://github.com/elaf1abdulaziz/Hajj-Guard-AI" target="_blank" class="btn-primary" style="display:inline-block;">
       View on GitHub →
     </a>
   </div>
@@ -693,7 +671,6 @@
 
 <div class="divider"></div>
 
-<!-- Certifications -->
 <section id="certifications">
   <div class="section-label fade-in">Credentials</div>
   <h2 class="section-title fade-in">Certifications & Licenses</h2>
@@ -706,7 +683,6 @@
         <div class="cert-issuer">MISK × Saudi Aramco</div>
       </div>
     </div>
-
     <div class="cert-card">
       <div class="cert-icon">🤖</div>
       <div class="cert-info">
@@ -719,7 +695,6 @@
 
 <div class="divider"></div>
 
-<!-- Contact -->
 <section id="contact">
   <div class="section-label fade-in">Connect</div>
   <h2 class="section-title fade-in">Get In Touch</h2>
@@ -738,14 +713,12 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-text">© 2025 Elaf Abdulaziz Al Hamad</div>
   <div class="footer-text">Cybersecurity · AI Development</div>
 </footer>
 
 <script>
-  // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -765,7 +738,6 @@
   }
   animRing();
 
-  // Fade in on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) e.target.classList.add('visible');
@@ -774,7 +746,6 @@
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
